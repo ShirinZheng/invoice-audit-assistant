@@ -1,0 +1,14 @@
+OFFICE SUPPLIES INVOICE
+Invoice ID: INV-0034
+Date: 2026-05-08
+Seller: Shanghai Bright Office Supplies Co., Ltd.
+Seller Tax ID: 91310000MA1FL8B29X
+Buyer: Acme Technology Co., Ltd.
+Project ID: PRJ-1002
+Category: office_supplies
+Description: Stationery and office supplies
+Amount: 2922.04
+Tax: 175.32
+Total: 3097.36
+Currency: CNY
+Payment Method: corporate transfer

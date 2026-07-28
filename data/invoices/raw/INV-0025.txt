@@ -1,0 +1,14 @@
+VAT SPECIAL INVOICE
+Invoice ID: INV-0025
+Date: 2026-02-26
+Seller: Blocked Trading Co., Ltd.
+Seller Tax ID: 91330100MA27X8U12K
+Buyer: Acme Technology Co., Ltd.
+Project ID: PRJ-1002
+Category: vat_special
+Description: Software development services
+Amount: 43160.16
+Tax: 2589.61
+Total: 45749.77
+Currency: CNY
+Payment Method: corporate transfer

@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="本地优先、规则可复现、引用可核验的发票智能审计助手"
+    >
+    <title>发票智能审计助手</title>
+    <link rel="stylesheet" href="/static/styles.css">
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="返回首页">
+          <span class="brand-mark" aria-hidden="true">审</span>
+          <span>
+            <strong>发票智能审计助手</strong>
+            <small>Invoice Audit Assistant</small>
+          </span>
+        </a>
+        <div class="status-pill" id="system-status">
+          <span class="status-dot"></span>
+          <span>正在检查服务</span>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div>
+            <p class="eyebrow">LOCAL-FIRST · POLICY-GROUNDED</p>
+            <h1>先让规则做决定，<br><span>再让 AI 讲清楚。</span></h1>
+            <p class="hero-copy">
+              上传发票文本、PDF 或图片，系统会核验金额、供应商、项目预算、
+              重复报销与合规风险，并给出可追溯的政策引用。
+            </p>
+          </div>
+          <div class="hero-metrics" aria-label="产品特点">
+            <div><strong>0</strong><span>离线模式 API 消耗</span></div>
+            <div><strong>5</strong><span>类确定性检查工具</span></div>
+            <div><strong>100%</strong><span>决策规则可复现</span></div>
+          </div>
+        </section>
+
+        <section class="workspace">
+          <form class="audit-panel" id="audit-form">
+            <div class="panel-heading">
+              <div>
+                <p class="step-label">01 · 输入</p>
+                <h2>选择发票来源</h2>
+              </div>
+              <button type="button" class="ghost-button" id="reset-button">重置</button>
+            </div>
+
+            <fieldset class="source-switcher">
+              <legend class="sr-only">发票来源</legend>
+              <label>
+                <input type="radio" name="source" value="demo" checked>
+                <span>示例发票</span>
+              </label>
+              <label>
+                <input type="radio" name="source" value="text">
+                <span>粘贴文本</span>
+              </label>
+              <label>
+                <input type="radio" name="source" value="file">
+                <span>上传文件</span>
+              </label>
+            </fieldset>
+
+            <div class="source-pane" data-source-pane="demo">
+              <label class="field-label" for="demo-invoice">示例数据</label>
+              <select id="demo-invoice" name="demo_invoice">
+                <option value="">正在加载示例发票…</option>
+              </select>
+              <p class="field-help">仓库内置 44 张合成发票，不包含真实企业数据。</p>
+            </div>
+
+            <div class="source-pane hidden" data-source-pane="text">
+              <label class="field-label" for="invoice-text">OCR 归一化文本</label>
+              <textarea
+                id="invoice-text"
+                rows="12"
+                placeholder="发票号码：INV-1001&#10;开票日期：2026-07-28&#10;销售方：示例科技有限公司&#10;金额：1000.00&#10;税额：60.00&#10;价税合计：1060.00"
+              ></textarea>
+              <p class="field-help">支持中英文“字段名：值”格式，内容仅在本机处理。</p>
+            </div>
+
+            <div class="source-pane hidden" data-source-pane="file">
+              <label class="drop-zone" id="drop-zone" for="invoice-file">
+                <input
+                  id="invoice-file"
+                  type="file"
+                  accept=".txt,.md,.csv,.json,.pdf,.png,.jpg,.jpeg,.webp,.tif,.tiff"
+                >
+                <span class="upload-icon" aria-hidden="true">↑</span>
+                <strong id="file-label">拖入文件，或点击选择</strong>
+                <small>TXT · PDF · PNG · JPG · 最大 10 MB</small>
+              </label>
+              <p class="field-help">图片通过本机 OCR 识别，关键字段仍建议人工复核。</p>
+            </div>
+
+            <div class="form-divider"></div>
+
+            <label class="field-label" for="audit-query">审计问题</label>
+            <textarea id="audit-query" rows="3">请审核这张发票是否可以报销，并说明依据。</textarea>
+
+            <label class="mode-toggle">
+              <span>
+                <strong>使用 DeepSeek 优化说明</strong>
+                <small id="deepseek-help">正在读取配置…</small>
+              </span>
+              <input type="checkbox" id="use-deepseek">
+              <span class="toggle-ui" aria-hidden="true"></span>
+            </label>
+
+            <button type="submit" class="primary-button" id="submit-button">
+              <span>开始审计</span>
+              <span aria-hidden="true">→</span>
+            </button>
+            <p class="form-error hidden" id="form-error" role="alert"></p>
+          </form>
+
+          <section class="result-panel empty" id="result-panel" aria-live="polite">
+            <div class="empty-state" id="empty-state">
+              <div class="document-illustration" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </div>
+              <p class="step-label">02 · 结果</p>
+              <h2>等待审计</h2>
+              <p>提交发票后，这里会展示结论、风险等级、政策依据与工具轨迹。</p>
+            </div>
+
+            <div class="loading-state hidden" id="loading-state">
+              <div class="spinner" aria-hidden="true"></div>
+              <h2>正在执行审计检查</h2>
+              <p>提取字段、比对规则并检索政策依据…</p>
+            </div>
+
+            <div class="result-content hidden" id="result-content">
+              <div class="result-header">
+                <div>
+                  <p class="step-label">02 · 审计结论</p>
+                  <h2 id="result-title">—</h2>
+                </div>
+                <span class="decision-badge" id="decision-badge">—</span>
+              </div>
+
+              <div class="summary-grid">
+                <article>
+                  <span>发票号码</span>
+                  <strong id="summary-id">—</strong>
+                </article>
+                <article>
+                  <span>票据类型</span>
+                  <strong id="summary-type">—</strong>
+                </article>
+                <article>
+                  <span>风险等级</span>
+                  <strong id="summary-risk">—</strong>
+                </article>
+                <article>
+                  <span>处理模式</span>
+                  <strong id="summary-mode">—</strong>
+                </article>
+              </div>
+
+              <article class="answer-card">
+                <h3>审计说明</h3>
+                <p id="result-answer"></p>
+              </article>
+
+              <div class="detail-grid">
+                <article class="detail-card">
+                  <div class="card-heading">
+                    <h3>识别字段</h3>
+                    <span id="field-count">0 项</span>
+                  </div>
+                  <dl class="field-list" id="field-list"></dl>
+                </article>
+
+                <article class="detail-card">
+                  <div class="card-heading">
+                    <h3>检查轨迹</h3>
+                    <span id="tool-count">0 项</span>
+                  </div>
+                  <ol class="tool-list" id="tool-list"></ol>
+                </article>
+              </div>
+
+              <article class="citation-card">
+                <div class="card-heading">
+                  <h3>政策依据</h3>
+                  <span id="citation-count">0 条</span>
+                </div>
+                <div id="citation-list"></div>
+              </article>
+
+              <div class="warning-list hidden" id="warning-list"></div>
+            </div>
+          </section>
+        </section>
+      </main>
+
+      <footer>
+        <span>所有示例数据均为合成数据</span>
+        <a href="/docs">API 文档</a>
+        <a href="https://github.com/ShirinZheng/invoice-audit-assistant">GitHub</a>
+      </footer>
+    </div>
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>

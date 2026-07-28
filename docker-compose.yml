@@ -1,0 +1,17 @@
+services:
+  invoice-audit-assistant:
+    build:
+      context: .
+    image: invoice-audit-assistant:local
+    ports:
+      - "8000:8000"
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      AUDIT_MODE: "${AUDIT_MODE:-offline}"
+      TRACE_ENABLED: "${TRACE_ENABLED:-true}"
+      TRACE_INCLUDE_CONTENT: "${TRACE_INCLUDE_CONTENT:-false}"
+    volumes:
+      - ./runs:/app/runs
+    restart: unless-stopped

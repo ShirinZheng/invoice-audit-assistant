@@ -1,0 +1,14 @@
+VAT GENERAL INVOICE
+Invoice ID: INV-0026
+Date: 2026-03-27
+Seller: Guangzhou Reliable Logistics Co., Ltd.
+Seller Tax ID: 91440100MA59KYT02W
+Buyer: Acme Technology Co., Ltd.
+Project ID: PRJ-1003
+Category: vat_general
+Description: General business services
+Amount: 4370.84
+Tax: 262.25
+Total: 4633.09
+Currency: CNY
+Payment Method: corporate transfer

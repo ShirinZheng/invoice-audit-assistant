@@ -1,0 +1,2 @@
+# 兼容传统 pip 工作流；推荐使用：pip install -e ".[dev]"
+-e .

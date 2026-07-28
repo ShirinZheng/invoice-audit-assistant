@@ -1,0 +1,14 @@
+VAT SPECIAL INVOICE
+Invoice ID: INV-0005
+Date: 2026-06-06
+Seller: Under Review Consulting Co., Ltd.
+Seller Tax ID: 91330100MA27X8U34R
+Buyer: Acme Technology Co., Ltd.
+Project ID: PRJ-1003
+Category: vat_special
+Description: Software development services
+Amount: 33668.26
+Tax: 2020.10
+Total: 35688.36
+Currency: CNY
+Payment Method: corporate transfer

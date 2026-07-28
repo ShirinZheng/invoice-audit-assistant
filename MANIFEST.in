@@ -1,0 +1,7 @@
+include LICENSE
+include README.md
+recursive-include web *.html *.css *.js
+recursive-include data/invoices/raw *.txt
+recursive-include data/knowledge_base *.md
+recursive-include evals/cases *.json
+recursive-include evals/baseline *.json

@@ -1,0 +1,14 @@
+VAT SPECIAL INVOICE
+Invoice ID: INV-0030
+Date: 2026-01-04
+Seller: Hangzhou Cloud Software Co., Ltd.
+Seller Tax ID: 91330100MA27X8U56T
+Buyer: Acme Technology Co., Ltd.
+Project ID: PRJ-1001
+Category: vat_special
+Description: Software development services
+Amount: 27960.22
+Tax: 1677.61
+Total: 29637.83
+Currency: CNY
+Payment Method: corporate transfer

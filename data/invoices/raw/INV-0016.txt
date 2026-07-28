@@ -1,0 +1,14 @@
+VAT GENERAL INVOICE
+Invoice ID: INV-0016
+Date: 2026-05-17
+Seller: Shanghai Bright Office Supplies Co., Ltd.
+Seller Tax ID: 91310000MA1FL8B29X
+Buyer: Acme Technology Co., Ltd.
+Project ID: PRJ-1002
+Category: vat_general
+Description: General business services
+Amount: 6766.83
+Tax: 406.01
+Total: 7172.84
+Currency: CNY
+Payment Method: corporate transfer

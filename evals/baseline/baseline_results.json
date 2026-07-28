@@ -1,0 +1,19 @@
+{
+  "mode": "offline",
+  "summary": {
+    "total_cases": 64,
+    "mean_score": 1.0,
+    "pass_rate": 1.0,
+    "p0_failures": [],
+    "category_scores": {
+      "standard_audit": 1.0,
+      "restricted_handling": 1.0,
+      "citation": 1.0,
+      "vendor_compliance": 1.0,
+      "duplicate": 1.0,
+      "amount_mismatch": 1.0,
+      "missing_fields": 1.0,
+      "escalation": 1.0
+    }
+  }
+}

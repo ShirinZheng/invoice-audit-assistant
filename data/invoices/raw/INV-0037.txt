@@ -1,0 +1,14 @@
+TRAVEL INVOICE
+Invoice ID: INV-0037
+Date: 2026-02-11
+Seller: Beijing Star Travel Agency Co., Ltd.
+Seller Tax ID: 91110000MA01C7Q40D
+Buyer: Acme Technology Co., Ltd.
+Project ID: PRJ-1002
+Category: travel
+Description: Flight and hotel for business trip
+Amount: 6686.42
+Tax: 401.19
+Total: 7087.61
+Currency: CNY
+Payment Method: corporate transfer

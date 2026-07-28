@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.12", "3.13"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install
+        run: python -m pip install -e ".[dev]"
+
+      - name: Check formatting
+        run: ruff format --check .
+
+      - name: Lint
+        run: ruff check .
+
+      - name: Scan tracked files for secrets
+        run: python scripts/check_secrets.py
+
+      - name: Test
+        env:
+          TRACE_ENABLED: "false"
+        run: pytest --cov=src --cov-report=term-missing --cov-fail-under=80
+
+      - name: Rebuild safe knowledge-base manifest
+        run: python scripts/build_index.py
+
+      - name: Verify offline regression baseline
+        env:
+          TRACE_ENABLED: "false"
+        run: python scripts/run_eval.py --baseline evals/baseline/baseline_results.json --fail-on-regression
+
+      - name: Build Python package
+        if: matrix.python-version == '3.12'
+        run: python -m build
+
+  docker:
+    name: Docker build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Build image
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          push: false
+          tags: invoice-audit-assistant:ci
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

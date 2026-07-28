@@ -1,0 +1,14 @@
+MEAL INVOICE
+Invoice ID: INV-0003
+Date: 2026-04-04
+Seller: Shenzhen Golden Dragon Restaurant Co., Ltd.
+Seller Tax ID: 91440300MA5EDR9H8Q
+Buyer: Acme Technology Co., Ltd.
+Project ID: PRJ-1001
+Category: meal
+Description: Team business meal at restaurant
+Amount: 305.52
+Tax: 18.33
+Total: 323.85
+Currency: CNY
+Payment Method: corporate transfer

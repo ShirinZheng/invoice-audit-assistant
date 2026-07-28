@@ -1,0 +1,28 @@
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# Virtual environment
+.venv/
+venv/
+
+# Environment variables
+.env
+
+# Runtime outputs
+runs/
+data/index/*
+!data/index/.gitkeep
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/
